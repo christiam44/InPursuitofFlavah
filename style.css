@@ -263,3 +263,16 @@ body {
     object-fit: cover;
     border-radius: 5px;
 }
+
+/* Target the search trigger icon */
+.js-search-trigger {
+    transition: transform 0.2s ease, color 0.2s ease;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.js-search-trigger:hover {
+    transform: scale(1.2);
+    color: #e67e22 !important;
+}
