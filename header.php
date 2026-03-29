@@ -27,7 +27,7 @@
                         <li><a href="<?php echo get_post_type_archive_link('vendor'); ?>">Vendors</a></li>
                         <li><a href="<?php echo get_post_type_archive_link('review'); ?>">Reviews</a></li>
                         <li><a href="<?php echo site_url('/food-map'); ?>">Food Map</a></li>
-                        <li><a href="<?php echo site_url('/culinary-game'); ?>">The Game</a></li>        
+                        <li><a href="<?php echo site_url('/this-or-that'); ?>">The Game</a></li>        
                                 </ul>
                 </nav>
 
