@@ -27,17 +27,15 @@
                         <li><a href="<?php echo get_post_type_archive_link('vendor'); ?>">Vendors</a></li>
                         <li><a href="<?php echo get_post_type_archive_link('review'); ?>">Reviews</a></li>
                         <li><a href="<?php echo site_url('/food-map'); ?>">Food Map</a></li>
-                        <li><a href="<?php echo site_url('/this-or-that'); ?>">The Game</a></li>        
-                                </ul>
+                        <li><a href="<?php echo site_url('/this-or-that'); ?>">This or That</a></li> 
+                        <?php if (is_user_logged_in()) { ?>
+                            <li><a href="<?php echo wp_logout_url(); ?>">Log Out</a></li>
+                        <?php } ?>       
+                    </ul>
                 </nav>
 
                 <div class="site-header__util">
-                    <?php if (is_user_logged_in()) { ?>
-                        <a href="<?php echo wp_logout_url(); ?>" class="btn btn--small btn--dark-orange float-left btn--with-photo">
-                          <span class="site-header__avatar"><?php echo get_avatar(get_current_user_id(), 60); ?></span> 
-                          <span class="btn__text">Log Out</span> 
-                        </a>
-                    <?php } else { ?>
+                    <?php if (!is_user_logged_in()) { ?>
                         <a href="<?php echo wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a> 
                         <a href="<?php echo wp_registration_url(); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a> 
                         <span class="search-trigger js-search-trigger">
