@@ -90,3 +90,14 @@ function flavah_search_overlay() { ?>
 <?php }
 
 add_action('wp_footer', 'flavah_search_overlay');
+
+
+// Only search for Vendors to stop duplicate results
+function flavah_search_filter($query) {
+    if ($query->is_search && !is_admin()) {
+        // We strictly limit the query to find only Vendors using the exact slug 'vendor'
+        $query->set('post_type', array('vendor'));
+    }
+    return $query;
+}
+add_filter('pre_get_posts', 'flavah_search_filter');
