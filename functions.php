@@ -101,3 +101,56 @@ function flavah_search_filter($query) {
     return $query;
 }
 add_filter('pre_get_posts', 'flavah_search_filter');
+
+// Custom Login Page Styles
+// 1. Change the Login Page CSS
+function flavah_login_css() { ?>
+    <style type="text/css">
+        /* Set the background to match our site's cream color */
+        body.login {
+            background-color: #fcfbf7 !important;
+        }
+
+        /* Style the login box to make it clean and floating */
+        .login h1 a {
+            background-image: url('<?php echo get_theme_file_uri("assets/images/IPOF.jpg"); ?>') !important;
+            background-size: cover !important;
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+            border: 3px solid #ff5722 !important; /* Brand deep orange */
+        }
+
+        /* Style the actual login form */
+        .login form {
+            border-radius: 12px !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
+            border: 1px solid #eadecc !important;
+        }
+
+        /* Style the login button to match our primary brand color */
+        .login .button-primary {
+            background: #ff5722 !important;
+            border-color: #e64a19 !important;
+            text-shadow: none !important;
+            box-shadow: 0 2px 4px rgba(255, 87, 34, 0.2) !important;
+        }
+        .login .button-primary:hover {
+            background: #e64a19 !important;
+        }
+    </style>
+<?php }
+add_action('login_enqueue_scripts', 'flavah_login_css');
+
+// 2. Change the Logo link from WordPress.org to your own website
+function flavah_login_url() {
+    return home_url();
+}
+add_filter('login_headerurl', 'flavah_login_url');
+
+// 3. Change the Tooltip text when hovering over the logo
+function flavah_login_title() {
+    return 'In Pursuit of Flavah - Portal';
+}
+add_filter('login_headertext', 'flavah_login_title');
