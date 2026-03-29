@@ -22,7 +22,7 @@ Text Domain: flavah
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: var(--dark);
-  background-color: #fcfbf7; /* NEW: Sets the whole site to warm cream */
+  background-color: #fcfbf7; /* Sets the whole site to warm cream */
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -38,93 +38,121 @@ body {
 .float-left { float: left; }
 .group:after { content: ""; display: table; clear: both; }
 
-/* --- 3. HEADER & NAVIGATION --- */
+/* --- 3. RESPONSIVE HEADER & NAVIGATION --- */
 .site-header {
   background: transparent; /* Makes the header pull the cream color from the body */
   padding: 1.5rem 0;
   border-bottom: 4px solid var(--primary);
-  box-shadow: none; /* Removed the shadow to make it sit seamlessly on the background */
+  box-shadow: none; 
 }
 
-/* Flexbox fix for Top Right alignment */
+/* Flexbox setup for the Header block */
 .site-header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap; /* Allows stacking if the screen gets super narrow */
+  gap: 15px;
 }
 
-.school-logo-text {
+/* Revert Logo back to clean, simple text as requested */
+.school-logo-text, .site-header__logo-text {
   margin: 0;
-  font-size: 1.6rem;
 }
 
-.school-logo-text a {
-  text-decoration: none;
-  color: var(--dark);
+.school-logo-text a, .site-header__logo-text a {
+  text-decoration: none !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
+  color: #222 !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
 
-.school-logo-text strong {
-  color: var(--primary);
+.school-logo-text a:hover, .site-header__logo-text a:hover {
+  color: var(--primary) !important;
 }
 
 .site-header__menu {
   display: flex;
   align-items: center;
-}
-
-.main-navigation {
-  margin-right: 30px;
+  flex-wrap: wrap; /* Stops overlapping in tight side tabs */
+  gap: 15px;
 }
 
 .main-navigation ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: flex !important;
+  flex-wrap: wrap !important; /* Forces items to drop to a new line instead of overlapping */
+  gap: 10px !important;
+  align-items: center !important;
 }
 
 .main-navigation li {
-  margin-left: 20px;
+  margin: 0 !important; /* Using gap above for spacing instead */
 }
 
-.main-navigation a {
-  text-decoration: none;
-  color: var(--dark);
+/* Scale down the navigation buttons and make them fluid */
+.main-navigation a, .site-header nav ul li a {
+  display: inline-block !important;
+  text-decoration: none !important;
+  color: #222 !important;
+  border: 1px solid var(--primary) !important;
+  padding: 6px 14px !important; /* Smaller padding so they fit natively on narrow screens */
+  border-radius: 20px !important;
+  font-size: 0.9rem !important;
   font-weight: 700;
-  font-size: 0.95rem;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
+  white-space: nowrap !important; /* Keeps labels like "This or That" on one single line */
 }
 
-.main-navigation a:hover {
-  color: var(--primary);
+.main-navigation a:hover, .site-header nav ul li a:hover {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(255, 87, 34, 0.2);
+}
+
+/* Ensure the Log Out area scales and fits nicely too */
+.site-header nav ul li a[href*="logout"], 
+.site-header a:last-child,
+.site-header .btn--with-icon { 
+  background-color: transparent;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  font-weight: bold;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.site-header nav ul li a[href*="logout"]:hover, 
+.site-header a:last-child:hover,
+.site-header .btn--with-icon:hover {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(255, 87, 34, 0.2);
+  transform: translateY(-2px);
 }
 
 /* --- 4. LOGIN / UTILITY --- */
 .site-header__util {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .btn--small {
-  padding: 8px 16px;
+  padding: 6px 14px;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-.push-right {
-  margin-right: 15px;
-}
-
-.site-header__avatar img {
-  border-radius: 50%;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.btn--with-photo {
-  display: flex;
-  align-items: center;
 }
 
 /* --- 5. HERO BANNER --- */
@@ -254,7 +282,7 @@ body {
 
 .link-list.min-list li {
     list-style: none;
-    margin-bottom: 20px; /* Adds space between menu items */
+    margin-bottom: 20px; 
 }
 
 /* Ensure the menu images don't overflow their container */
@@ -279,46 +307,31 @@ body {
 }
 
 /* Better Resizing for Side-by-Side Food/Text Layout */
-
-/* 1. Ensure the main container is flexible */
 .generic-content {
     display: flex;
-    gap: 40px; /* Increased gap slightly for breathing room */
-    align-items: flex-start; /* Keeps items aligned at the top */
+    gap: 40px; 
+    align-items: flex-start; 
     width: 100%;
 }
 
-/* 2. Target the left column (the image) */
-.generic-content > div:first-child {
-    flex: 1; /* Retains a base ratio of 1 */
-    min-width: 250px; /* NEW: prevents the image from shrinking smaller than this */
-    max-width: 350px; /* NEW: prevents the image from getting too large on big screens */
-}
-
-/* 3. Ensure the image inside scales to fit the column */
 .generic-content img {
     width: 100%;
-    height: auto; /* Maintains aspect ratio */
-    object-fit: cover; /* NEW: fills the container without stretching (crops edges slightly if needed) */
-    border-radius: 12px; /* Smooth corners */
-}
-
-/* 4. Target the right column (the text and vendor card) */
-.generic-content > div:last-child {
-    flex: 2; /* Adjusting the ratio from 1.5 to 2 gives the text more relative space */
+    height: auto; 
+    object-fit: cover; 
+    border-radius: 12px; 
 }
 
 /* Responsive adjustments for mobile */
 @media screen and (max-width: 768px) {
     .generic-content {
-        flex-direction: column; /* Stacks the columns vertically */
-        align-items: center; /* Center aligns the stacked items */
-        text-align: center; /* Center aligns the text on mobile */
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
     }
 
     .generic-content > div:first-child,
     .generic-content > div:last-child {
-        max-width: 100%; /* Columns fill the width */
-        min-width: 100%; /* Prevents unwanted shrinking on small screens */
+        max-width: 100%; 
+        min-width: 100%; 
     }
 }
