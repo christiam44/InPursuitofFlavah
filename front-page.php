@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php get_header(); ?>
 
 <div class="page-banner">
@@ -80,7 +80,7 @@
   </div>
 </div>
 
-=======
+
 <?php get_header(); ?>
 
 <div class="page-banner">
@@ -162,5 +162,4 @@
   </div>
 </div>
 
->>>>>>> afb574335cd068ad40160cb19c2f23e3a04e3b97
 <?php get_footer(); ?>
