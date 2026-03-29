@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div class="page-banner">
-  <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('assets/images/food-hero.jpg'); ?>);"></div>
+  <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('assets/images/IPOF-logo.jpg'); ?>);"></div>
   <div class="page-banner__content container t-center c-white">
     <h1 class="headline headline--large"><?php bloginfo('name'); ?></h1>
     <h2 class="headline headline--medium"><?php bloginfo('description'); ?></h2>
@@ -58,11 +58,29 @@
         while ($homepageVendors->have_posts()) {
           $homepageVendors->the_post();
           $price = get_field('price_range');
+          
+          // MAP TEXT LABELS TO DOLLAR SIGNS
+          $price_display = '?';
+          if ($price) {
+              switch (strtolower($price)) {
+                  case 'cheap':
+                      $price_display = '$';
+                      break;
+                  case 'moderate':
+                      $price_display = '$$';
+                      break;
+                  case 'expensive':
+                      $price_display = '$$$';
+                      break;
+                  default:
+                      $price_display = $price; // Fallback to raw text if it's already a number or custom
+              }
+          }
           ?>
           <div class="event-summary">
             <a class="event-summary__date event-summary__date--beige t-center" href="<?php the_permalink(); ?>">
               <span class="event-summary__month">Price</span>
-              <span class="event-summary__day"><?php echo $price ? $price : '?'; ?></span>
+              <span class="event-summary__day"><?php echo $price_display; ?></span>
             </a>
             <div class="event-summary__content">
               <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
