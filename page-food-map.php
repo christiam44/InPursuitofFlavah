@@ -12,6 +12,29 @@ get_header(); ?>
         <p style="color: #666; font-size: 1.1rem;">A visual guide to the best flavors and restaurant venues!</p>
     </header>
 
+    <style>
+    /* Zoom effect on the image */
+    .vendor-card:hover .vendor-photo {
+        transform: scale(1.05);
+    }
+    
+    /* Smooth transition for the image zoom */
+    .vendor-photo {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Slight lift effect on the card itself */
+    .vendor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.12) !important;
+    }
+    
+    /* Smooth transition for the card lift */
+    .vendor-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+</style>
+
     <div class="vendor-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
         
         <?php
