@@ -1,7 +1,7 @@
 /*
 Theme Name: In Pursuit of Flavah
-Author: Christiam Alexander & Team
-Description: Custom culinary review theme adapted for INFO3602.
+Author: Christiam Alexander & Group 8
+Description: Custom culinary review theme for INFO 3602
 Version: 1.0
 Text Domain: flavah
 */
@@ -327,4 +327,82 @@ body {
         max-width: 100%; 
         min-width: 100%; 
     }
+}
+
+/* 10. MOBILE RESPONSIVE MENU */
+
+/* Hide the toggle button by default on computers */
+.site-header__menu-trigger {
+  display: none !important;
+  font-size: 1.5rem;
+  color: var(--primary);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+@media screen and (max-width: 768px) {
+  /* Make the hamburger icon visible on phones */
+  .site-header__menu-trigger {
+    display: block !important;
+  }
+  
+  /* Hide the menu links on phones by default */
+  .site-header__menu {
+    display: none; 
+    width: 100%;
+    background-color: #ffffff;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+  }
+  
+  /* This class will be added by our JavaScript when clicked */
+  .site-header__menu.is-visible {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .main-navigation ul {
+    flex-direction: column;
+    align-items: flex-start !important;
+    width: 100%;
+  }
+  
+  .main-navigation a, .site-header nav ul li a {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* 11. THIS OR THAT GAME HOVER EFFECTS */
+
+/* Target the whole card to make it lift and glow */
+.food-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* 1. The Hover Effect (Lifts up and glows) */
+.food-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(255, 87, 34, 0.15) !important; /* Brand orange glow */
+  border-color: var(--primary) !important;
+}
+
+/* Zoom the background image slightly on hover for an extra dynamic effect */
+.food-card:hover div[style*="background"] {
+  transform: scale(1.05);
+}
+
+/* Keep the zoom clean without spilling out of the rounded corners */
+.food-card div[style*="background"] {
+  transition: transform 0.3s ease;
+}
+
+/* 2. The Click/Tap Effect (Shrinks down quickly when pressed) */
+.food-card:active {
+  transform: translateY(-2px) scale(0.98);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.1s ease !important;
 }
