@@ -6,7 +6,7 @@ Version: 1.0
 Text Domain: flavah
 */
 
-/* --- 1. THE APPETIZING PALETTE --- */
+/* 1. THE APPETIZING PALETTE */
 :root {
   --primary: #ff5722;      /* Deep Orange (Hunger/Action) */
   --primary-dark: #e64a19; 
@@ -16,7 +16,7 @@ Text Domain: flavah
   --white: #ffffff;
 }
 
-/* --- 2. RESET & BASICS --- */
+/* 2. RESET & BASICS */
 * { box-sizing: border-box; }
 
 body {
@@ -38,7 +38,7 @@ body {
 .float-left { float: left; }
 .group:after { content: ""; display: table; clear: both; }
 
-/* --- 3. RESPONSIVE HEADER & NAVIGATION --- */
+/* 3. RESPONSIVE HEADER & NAVIGATION */
 .site-header {
   background: transparent; /* Makes the header pull the cream color from the body */
   padding: 1.5rem 0;
@@ -61,6 +61,7 @@ body {
 }
 
 .school-logo-text a, .site-header__logo-text a {
+  display: inline-block !important; /* Required for transform effects to work */
   text-decoration: none !important;
   font-family: 'Playfair Display', serif !important;
   font-size: 1.8rem !important;
@@ -69,10 +70,14 @@ body {
   border: none !important;
   padding: 0 !important;
   border-radius: 0 !important;
+  transition: all 0.3s ease;
 }
 
+/* Float up and glow orange on hover for the logo */
 .school-logo-text a:hover, .site-header__logo-text a:hover {
   color: var(--primary) !important;
+  transform: translateY(-3px);
+  text-shadow: 0 5px 10px rgba(255, 87, 34, 0.15);
 }
 
 .site-header__menu {
@@ -110,38 +115,38 @@ body {
   white-space: nowrap !important; /* Keeps labels like "This or That" on one single line */
 }
 
+/* Navigation buttons float up on hover */
 .main-navigation a:hover, .site-header nav ul li a:hover {
   background-color: var(--primary) !important;
   color: #ffffff !important;
-  box-shadow: 0 3px 10px rgba(255, 87, 34, 0.2);
+  box-shadow: 0 5px 12px rgba(255, 87, 34, 0.3);
+  transform: translateY(-3px);
 }
 
-/* Ensure the Log Out area scales and fits nicely too */
+/* Ensure the Log Out area scales, acts as clean text, and floats on hover */
 .site-header nav ul li a[href*="logout"], 
-.site-header a:last-child,
-.site-header .btn--with-icon { 
-  background-color: transparent;
+.site-header a:last-child { 
+  background-color: transparent !important;
   color: var(--primary) !important;
-  border: 1px solid var(--primary) !important;
-  padding: 6px 14px !important;
-  border-radius: 20px !important;
-  font-weight: bold;
-  font-size: 0.9rem !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-weight: bold !important;
+  font-size: 0.95rem !important;
   transition: all 0.3s ease;
   display: inline-flex !important;
   align-items: center !important;
 }
 
+/* Float up and glow orange on hover for the Log Out text */
 .site-header nav ul li a[href*="logout"]:hover, 
-.site-header a:last-child:hover,
-.site-header .btn--with-icon:hover {
-  background-color: var(--primary) !important;
-  color: #ffffff !important;
-  box-shadow: 0 3px 10px rgba(255, 87, 34, 0.2);
-  transform: translateY(-2px);
+.site-header a:last-child:hover {
+  color: var(--primary-dark) !important;
+  transform: translateY(-3px);
+  text-shadow: 0 5px 10px rgba(255, 87, 34, 0.15);
 }
 
-/* --- 4. LOGIN / UTILITY --- */
+/* 4. LOGIN / UTILITY */
 .site-header__util {
   display: flex;
   align-items: center;
@@ -155,7 +160,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* --- 5. HERO BANNER --- */
+/* 5. HERO BANNER */
 .page-banner {
   background-color: #000;
   height: 50vh;
@@ -183,7 +188,7 @@ body {
 .headline--large { font-size: 3.5rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 .headline--medium { font-size: 1.8rem; font-weight: 300; margin-bottom: 2rem; }
 
-/* --- 6. BUTTONS --- */
+/* 6. BUTTONS */
 .btn {
   display: inline-block;
   padding: 12px 28px;
@@ -208,7 +213,7 @@ body {
   color: var(--dark) !important;
 }
 
-/* --- 7. SPLIT SECTIONS --- */
+/* 7. SPLIT SECTIONS */
 .full-width-split { display: flex; flex-wrap: wrap; }
 
 .full-width-split__one, .full-width-split__two {
@@ -220,7 +225,7 @@ body {
 .full-width-split__one { background: #f9f9f9; }
 .full-width-split__two { background: #ffffff; border-left: 1px solid #eee; }
 
-/* --- 8. THE SUMMARY CARDS --- */
+/* 8. THE SUMMARY CARDS */
 .event-summary {
   display: flex;
   background: #fff;
@@ -255,7 +260,7 @@ body {
   color: var(--primary);
 }
 
-/* --- 9. FOOTER --- */
+/* 9. FOOTER */
 .site-footer {
   background: #1a1a1a;
   color: #999;
