@@ -154,3 +154,25 @@ function flavah_login_title() {
     return 'In Pursuit of Flavah - Portal';
 }
 add_filter('login_headertext', 'flavah_login_title');
+
+// Toggle mobile navigation menu
+function flavah_mobile_menu_script() {
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var menuTrigger = document.querySelector('.site-header__menu-trigger');
+        var siteMenu = document.querySelector('.site-header__menu');
+
+        if (menuTrigger && siteMenu) {
+            menuTrigger.addEventListener('click', function() {
+                siteMenu.classList.toggle('is-visible');
+                
+                // Optional: Animates the hamburger slightly when clicked
+                this.style.transform = siteMenu.classList.contains('is-visible') ? 'rotate(90deg)' : 'rotate(0deg)';
+            });
+        }
+    });
+    </script>
+    <?php
+}
+add_action('wp_footer', 'flavah_mobile_menu_script');

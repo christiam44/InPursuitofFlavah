@@ -5,7 +5,7 @@
     <div class="page-banner__content container container--narrow">
         <h1 class="page-banner__title">Local Vendors</h1>  
         <div class="page-banner__intro">
-            <p>From Curepe to Port of Spain—find your next favorite meal.</p>
+            <p>Come explore and discover the best local food vendors in your area!</p>
         </div>
     </div>     
 </div>
