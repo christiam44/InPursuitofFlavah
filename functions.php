@@ -113,7 +113,7 @@ function flavah_login_css() { ?>
 
         /* Style the login box to make it clean and floating */
         .login h1 a {
-            background-image: url('<?php echo get_theme_file_uri("assets/images/IPOF.jpg"); ?>') !important;
+            background-image: url('<?php echo get_theme_file_uri("assets/images/IPOF-logo.jpg"); ?>') !important;
             background-size: cover !important;
             width: 100px !important;
             height: 100px !important;
