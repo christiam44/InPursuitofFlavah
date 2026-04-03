@@ -164,12 +164,12 @@ while(have_posts()) {
                 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Review Title</label>
-                    <input type="text" name="review_title" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="e.g., Best Doubles Ever!" required>
+                    <input type="text" name="review_title" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="e.g., Delicious BBQ" required>
                 </div>
 
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Your Review</label>
-                    <textarea name="review_content" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="Tell us about the vibes and the food..." required></textarea>
+                    <textarea name="review_content" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="Let us know how the food and service was..." required></textarea>
                 </div>
 
                 <input type="hidden" name="action" value="submit_custom_review">
