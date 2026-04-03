@@ -3,11 +3,13 @@
       <div class="group">
 
         <div class="site-footer__col-one">
-          <h1 class="school-logo-text school-logo-text--alt-color">
-            <a href="<?php echo site_url() ?>"><strong>In Pursuit</strong> of Flavah</a>
-          </h1>
-          <p><a class="site-footer__link" href="#">868-FLAVAH-1</a></p>
-        </div>
+         <h1 class="school-logo-text school-logo-text--alt-color">
+      <a href="<?php echo site_url() ?>" style="color: #ffffff;"><strong>In Pursuit</strong> of Flavah</a>
+      </h1>
+          
+        <p>
+        <a class="site-footer__link" href="#" style="color: #a0a0a0;">868-FLAVAH-1</a>
+        </p>
 
         <div class="site-footer__col-two-three-group">
           <div class="site-footer__col-two">

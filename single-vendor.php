@@ -26,7 +26,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !empty( $_POST['action'] ) && $_POS
         if ( $post_id ) {
             // Maps review to vendor by saving the vendor's ID in the review's post meta 
             update_post_meta( $post_id, 'linked_vendor', $vendor_id ); 
-            $message = '<div style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 6px; margin-bottom: 20px;">Review submitted successfully! Thanks for sharing your flavah!</div>';
+            $message = '<div style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 6px; margin-bottom: 20px;">Review submitted successfully! Thanks for sharing the flavah!</div>';
         }
     }
 }

@@ -5,7 +5,7 @@ while(have_posts()) {
 
     <div class="page-banner">
         <?php 
-        // Logic to show the Review's featured image or a default
+        // Show the featured image or a default as a fallback
         $bannerImage = get_the_post_thumbnail_url() ? get_the_post_thumbnail_url(get_the_ID(), 'full') : get_theme_file_uri('images/food-hero.jpg');
         ?>
         <div class="page-banner__bg-image" style="background-image: url(<?php echo $bannerImage; ?>);"></div>
@@ -15,25 +15,34 @@ while(have_posts()) {
     </div>
 
     <div class="container container--narrow page-section">
+        
+        <?php 
+        $rating = get_field('rating'); 
+        if ($rating) { ?>
+            <div style="margin-bottom: 20px; font-size: 1.2rem;">
+                <strong>Rating:</strong> 
+                <span style="color: #ff5722; font-weight: bold;"><?php echo esc_html($rating); ?> / 5</span>
+            </div>
+        <?php } ?>
+
         <div class="generic-content">
             <?php the_content(); ?>
         </div>
 
         <?php 
-        // LOGIC: Check for the 'Linked Vendor' Relationship field
-        $linkedVendors = get_field('linked_vendor'); 
+        // Checking if linked_vendor field has a value and showing a link to the Vendor profile if it does
+        $vendor_id = get_field('linked_vendor'); 
         
-        if($linkedVendors) { ?>
+        // If there is a linked vendor, we show a link to their profile page at the bottom of the review
+        if($vendor_id) { ?>
             <hr class="section-break">
             <h2 class="headline headline--small">About the Vendor:</h2>
             <ul class="link-list min-list">
-                <?php foreach($linkedVendors as $vendor) { ?>
-                    <li>
-                        <a href="<?php echo get_the_permalink($vendor); ?>">
-                            <i class="fa fa-cutlery" aria-hidden="true"></i> Visit <?php echo get_the_title($vendor); ?>
-                        </a>
-                    </li>
-                <?php } ?>
+                <li>
+                    <a href="<?php echo get_the_permalink($vendor_id); ?>">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i> Visit <?php echo get_the_title($vendor_id); ?>
+                    </a>
+                </li>
             </ul>
         <?php } ?>
     </div>
