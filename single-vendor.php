@@ -22,7 +22,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !empty( $_POST['action'] ) && $_POS
         );
 
         //Adds the post to the database and gives us back the new review's post ID 
-
+        $post_id = wp_insert_post( $new_review );
         if ( $post_id ) {
             // Maps review to vendor by saving the vendor's ID in the review's post meta 
             update_post_meta( $post_id, 'linked_vendor', $vendor_id ); 
