@@ -36,8 +36,10 @@
 
                 <div class="site-header__util">
                     <?php if (!is_user_logged_in()) { ?>
-                        <a href="<?php echo wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a> 
-                        <a href="<?php echo wp_registration_url(); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a> 
+                        <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn--small btn--orange float-left push-right">Login</a> 
+                        
+                        <a href="<?php echo esc_url(site_url('/sign-up')); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a> 
+                        
                         <span class="search-trigger js-search-trigger">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </span>
