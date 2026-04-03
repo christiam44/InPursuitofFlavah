@@ -1,5 +1,39 @@
-<?php get_header();
+<?php 
 
+//Checking to see if the form was submitted and handling the review creation process
+$message = '';
+if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !empty( $_POST['action'] ) && $_POST['action'] == 'submit_custom_review' ) {
+    
+    // Grab and clean up what the user typed in the boxes
+    $title = sanitize_text_field( $_POST['review_title'] );
+    $content = sanitize_textarea_field( $_POST['review_content'] );
+    $vendor_id = get_the_ID(); // Grabs the ID of the vendor profile the user is currently viewing!
+
+    // Error handling if they forgot to fill out one of the boxes
+    if ( empty( $title ) || empty( $content ) ) {
+        $message = '<div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 6px; margin-bottom: 20px;">Please fill out the form completely</div>';
+    } else {
+        $new_review = array(
+            'post_title'   => $title,
+            'post_content' => $content,
+            'post_status'  => 'publish', // Published the review automatically so that it shows up on the site right away
+            'post_type'    => 'review',
+            'post_author'  => get_current_user_id() // Links the review to the user who wrote it
+        );
+
+        //Adds the post to the database and gives us back the new review's post ID 
+
+        if ( $post_id ) {
+            // Maps review to vendor by saving the vendor's ID in the review's post meta 
+            update_post_meta( $post_id, 'linked_vendor', $vendor_id ); 
+            $message = '<div style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 6px; margin-bottom: 20px;">Review submitted successfully! Thanks for sharing your flavah!</div>';
+        }
+    }
+}
+
+get_header();
+
+//Loop through the vendor post that was clicked on and display its content
 while(have_posts()) {
     the_post(); 
     $vendor_id = get_the_ID();
@@ -22,6 +56,7 @@ while(have_posts()) {
         <h2 class="headline headline--medium">Menu Highlights</h2>
 
         <?php 
+          // Query to show food items linked to the vendor
           $vendorMenu = new WP_Query(array(
             'post_type' => 'food',
             'meta_query' => array(
@@ -61,13 +96,14 @@ while(have_posts()) {
           } else {
             echo '<p class="t-center">No menu items listed yet for ' . get_the_title() . '.</p>';
           }
-          wp_reset_postdata(); 
+          wp_reset_postdata(); // Clean up after our custom query
         ?>
 
         <hr class="section-break">
         <h2 class="headline headline--medium">Customer Reviews</h2>
 
         <?php 
+        // Query to show reviews linked to the vendor
         $reviews = new WP_Query(array(
             'post_type' => 'review',
             'meta_query' => array(
@@ -82,7 +118,7 @@ while(have_posts()) {
         if($reviews->have_posts()) {
             while($reviews->have_posts()) {
                 $reviews->the_post();
-                $rating = get_field('rating'); 
+                $rating = get_field('rating'); // Pulls the rating used in the review acf field
                 ?>
                 
                 <div class="event-summary">
@@ -101,7 +137,7 @@ while(have_posts()) {
                 </div>
 
             <?php }
-            wp_reset_postdata();
+            wp_reset_postdata(); // Cleans up the loop again
         } else {
             echo '<p class="t-center">No reviews yet for ' . get_the_title() . '. Be the first to write one!</p>';
         }
@@ -109,6 +145,40 @@ while(have_posts()) {
 
     </div>
 
-<?php }
+<?php } ?>
 
-get_footer(); ?>
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="review-form-container" style="max-width: 600px; padding: 30px; background: #fff; border: 1px solid #eadecc; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+        
+        <h2 style="font-family: 'Playfair Display', serif; color: #ff5722; margin-bottom: 20px;">Leave a Review for <?php the_title(); ?></h2>
+
+        <?php if ( ! is_user_logged_in() ) { ?>
+            <p style="background: #fcfbf7; padding: 15px; border-radius: 6px; border: 1px solid #eadecc;">
+                Want to leave a review? <a href="<?php echo wp_login_url(); ?>" style="color: #ff5722; font-weight: bold;">Log in here</a> to share your experience!
+            </p>
+        <?php } else { ?>
+            
+            <?php echo $message; ?>
+
+            <form method="post" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>">
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Review Title</label>
+                    <input type="text" name="review_title" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="e.g., Best Doubles Ever!" required>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Your Review</label>
+                    <textarea name="review_content" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="Tell us about the vibes and the food..." required></textarea>
+                </div>
+
+                <input type="hidden" name="action" value="submit_custom_review">
+                
+                <button type="submit" style="width: 100%; padding: 12px; background: #ff5722; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Submit Review</button>
+            </form>
+
+        <?php } ?>
+    </div>
+</div>
+
+<?php get_footer(); ?>
