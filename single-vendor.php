@@ -7,10 +7,11 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !empty( $_POST['action'] ) && $_POS
     // Grab and clean up what the user typed in the boxes
     $title = sanitize_text_field( $_POST['review_title'] );
     $content = sanitize_textarea_field( $_POST['review_content'] );
+    $rating = intval( $_POST['review_rating'] ); // NEW: Grabs the number rating from the form!
     $vendor_id = get_the_ID(); // Grabs the ID of the vendor profile the user is currently viewing!
 
     // Error handling if they forgot to fill out one of the boxes
-    if ( empty( $title ) || empty( $content ) ) {
+    if ( empty( $title ) || empty( $content ) || empty( $rating ) ) {
         $message = '<div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 6px; margin-bottom: 20px;">Please fill out the form completely</div>';
     } else {
         $new_review = array(
@@ -26,6 +27,10 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !empty( $_POST['action'] ) && $_POS
         if ( $post_id ) {
             // Maps review to vendor by saving the vendor's ID in the review's post meta 
             update_post_meta( $post_id, 'linked_vendor', $vendor_id ); 
+
+            // NEW: This saves the numeric rating directly into the ACF field called 'rating'
+            update_post_meta( $post_id, 'rating', $rating );
+
             $message = '<div style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 6px; margin-bottom: 20px;">Review submitted successfully! Thanks for sharing the flavah!</div>';
         }
     }
@@ -102,10 +107,15 @@ while(have_posts()) {
         <hr class="section-break">
         <h2 class="headline headline--medium">Customer Reviews</h2>
 
-        <?php 
-        // Query to show reviews linked to the vendor
+       <?php 
+        // Retrieve the current page number for pagination (defaults to 1 if not set)
+        $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+
+        // Query to show reviews linked to the vendor with pagination
         $reviews = new WP_Query(array(
             'post_type' => 'review',
+            'posts_per_page' => 4, // Shows at most 4 reviews per page
+            'paged' => $paged,
             'meta_query' => array(
                 array(
                     'key' => 'linked_vendor', 
@@ -137,6 +147,16 @@ while(have_posts()) {
                 </div>
 
             <?php }
+            
+            //Pagination links for reviews
+                echo '<div class="pagination" style="display: flex; gap: 10px; margin-top: 20px;">';
+                echo paginate_links(array(
+                    'total' => $reviews->max_num_pages,
+                    'current' => $paged,
+                    'prev_text' => '<span style="padding: 8px 12px; border: 1px solid #ff5722; color: #ff5722; border-radius: 4px;">&laquo; Previous</span>',
+                    'next_text' => '<span style="padding: 8px 12px; border: 1px solid #ff5722; color: #ff5722; border-radius: 4px;">Next &raquo;</span>',
+                ));
+                echo '</div>';
             wp_reset_postdata(); // Cleans up the loop again
         } else {
             echo '<p class="t-center">No reviews yet for ' . get_the_title() . '. Be the first to write one!</p>';
@@ -165,6 +185,18 @@ while(have_posts()) {
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Review Title</label>
                     <input type="text" name="review_title" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" placeholder="e.g., Delicious BBQ" required>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Your Rating</label>
+                    <select name="review_rating" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                        <option value="">Select a rating</option>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Good</option>
+                        <option value="3">3 - Average</option>
+                        <option value="2">2 - Poor</option>
+                        <option value="1">1 - Terrible</option>
+                    </select>
                 </div>
 
                 <div style="margin-bottom: 20px;">
