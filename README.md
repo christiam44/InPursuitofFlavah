@@ -1,7 +1,7 @@
 # InPursuitofFlavah
 For INFO 3602 Project 2026
 
-A custom WordPress theme developed for the INFO3602 Web Programming course at The University of the West Indies (UWI). This project is a culinary recommendation and exploration engine designed to help users discover top-tier food vendors and interact with a unique decision-making game.
+A  WordPress site developed for the INFO3602 Web Programming course at The University of the West Indies (UWI) using the Nook theme available on Wordpress. This project is a culinary recommendation and exploration engine designed to help users discover top-tier food vendors and interact with a unique decision-making game.
 
 Current Project Status & Features
 The project is currently in active development. The following core mechanics and custom templates have been successfully implemented and tested:
