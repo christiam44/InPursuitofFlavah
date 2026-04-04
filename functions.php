@@ -88,15 +88,8 @@ function flavah_search_overlay() { ?>
 add_action('wp_footer', 'flavah_search_overlay');
 
 
-// Only searching for Vendors so we don't get duplicate results or mess up our layout
-function flavah_search_filter($query) {
-    if ($query->is_search && !is_admin()) {
-        // We are strictly limiting the query to find only Vendors using the exact slug 'vendor'
-        $query->set('post_type', array('vendor'));
-    }
-    return $query;
-}
-add_filter('pre_get_posts', 'flavah_search_filter');
+// NOTE: The vendor-restricting filter was safely removed from this spot!
+
 
 // Spicing up the default WordPress login page so it matches our brand
 function flavah_login_css() { ?>
@@ -194,3 +187,44 @@ function flavah_custom_user_roles() {
     // Note: The 3rd required role is just the standard Administrator (us) which WP makes by default!
 }
 add_action('init', 'flavah_custom_user_roles');
+
+
+//This matches the search query to only pull from food items
+add_action('wp_ajax_flavah_live_search', 'flavah_live_search_callback');
+add_action('wp_ajax_nopriv_flavah_live_search', 'flavah_live_search_callback');
+
+function flavah_live_search_callback() {
+    // Security check: Make sure we actually have a search term
+    if ( !isset($_POST['keyword']) || empty($_POST['keyword']) ) {
+        wp_send_json_error('No search term provided.');
+    }
+
+    $keyword = sanitize_text_field($_POST['keyword']);
+
+    //  query targeting ONLY the 'food' post type
+    $food_query = new WP_Query(array(
+        'post_type'      => 'food',
+        'posts_per_page' => 5,
+        's'              => $keyword
+    ));
+
+    $results = array();
+
+    if ($food_query->have_posts()) {
+        while ($food_query->have_posts()) {
+            $food_query->the_post();
+            
+            // Mapping post data into an array purely via PHP
+            $results[] = array(
+                'title' => get_the_title(),
+                'link'  => get_permalink()
+            );
+        }
+        wp_reset_postdata();
+        
+        // Sending the successfully formatted PHP array back as a JSON response
+        wp_send_json_success($results);
+    } else {
+        wp_send_json_error('No items found.');
+    }
+}
