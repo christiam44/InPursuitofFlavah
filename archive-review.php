@@ -10,7 +10,7 @@
     </div>     
 </div>
 
-<div class="container container--narrow page-section">
+<div class="container container--narrow page-section" style="margin-top: 60px;">
     <?php
     while(have_posts()){
         the_post(); 
