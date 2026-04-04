@@ -49,10 +49,19 @@ get_header(); ?>
         if ($vendor_query->have_posts()) : 
             while ($vendor_query->have_posts()) : $vendor_query->the_post(); 
                 
-                // Grab the featured image of the restaurant venue
-                $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
+                // 1. Grab the venue photo from the ACF custom field (assumes Image Array return type)
+                $venue_image = get_field('venue_photo');
+                $thumbnail = '';
+
+                if (is_array($venue_image) && isset($venue_image['url'])) {
+                    // Use the uploaded ACF venue photo URL
+                    $thumbnail = $venue_image['url'];
+                } else {
+                    // Fallback image if no ACF image is set (grabs the post's featured image)
+                    $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
+                }
                 
-                // Fallback image if the vendor doesn't have one uploaded
+                // Final hard fallback if the post has absolutely no image attached
                 if (!$thumbnail) {
                     $thumbnail = get_template_directory_uri() . '/assets/images/food-hero.jpg';
                 }
