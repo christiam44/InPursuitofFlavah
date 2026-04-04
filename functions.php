@@ -88,13 +88,12 @@ function flavah_search_overlay() { ?>
 add_action('wp_footer', 'flavah_search_overlay');
 
 
-// NOTE: The vendor-restricting filter was safely removed from this spot!
 
 
-// Spicing up the default WordPress login page so it matches our brand
+// Customizing the WordPress login page to match our site's branding and style 
 function flavah_login_css() { ?>
     <style type="text/css">
-        /* Setting the background to match our site's cream color */
+        /* Setting the background to match site design better */
         body.login {
             background-color: #fcfbf7 !important;
         }
@@ -131,19 +130,18 @@ function flavah_login_css() { ?>
 <?php }
 add_action('login_enqueue_scripts', 'flavah_login_css');
 
-// Changing the login logo link from WordPress.org back to our actual site
+// Changing the login logo link from WordPress.org to our actual site
 function flavah_login_url() {
     return home_url();
 }
 add_filter('login_headerurl', 'flavah_login_url');
 
-// Tweaking the tooltip text when hovering over the logo
 function flavah_login_title() {
     return 'In Pursuit of Flavah - Portal';
 }
 add_filter('login_headertext', 'flavah_login_title');
 
-// JavaScript to toggle the mobile navigation menu on/off
+// Toggle the menu on and off for mobile devices when the hamburger icon is clicked
 function flavah_mobile_menu_script() {
     ?>
     <script>
@@ -170,21 +168,21 @@ add_action('wp_footer', 'flavah_mobile_menu_script');
 
 function flavah_custom_user_roles() {
     
-    // Role 1: The Customer. They basically just need to read posts and leave reviews on the front end.
+    // Role 1: The Customer, needs to read posts and leave reviews on the front end.
     add_role('customer', 'Customer', array(
         'read' => true,
         'edit_posts' => false, // Keep them out of the backend!
         'delete_posts' => false,
     ));
 
-    // Role 2: The Vendor Owner. They need to be able to log in and upload/edit their own food items.
+    // Role 2: The Vendor Owner, needs to be able to log in and upload/edit their own food items.
     add_role('vendor_owner', 'Vendor Owner', array(
         'read' => true,
         'edit_posts' => true, 
         'upload_files' => true, // So they can upload photos of their dishes
     ));
     
-    // Note: The 3rd required role is just the standard Administrator (us) which WP makes by default!
+    //Role 3: Admins are already created by WordPress and have all capabilities, so we don't need to add them here.
 }
 add_action('init', 'flavah_custom_user_roles');
 

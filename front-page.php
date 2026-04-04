@@ -59,7 +59,7 @@
           $homepageVendors->the_post();
           $price = get_field('price_range');
           
-          // MAP TEXT LABELS TO DOLLAR SIGNS
+          //Map text labels to the dollar signs in the ACF
           $price_display = '?';
           if ($price) {
               switch (strtolower($price)) {

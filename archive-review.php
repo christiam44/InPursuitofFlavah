@@ -20,7 +20,7 @@
         $linked_vendor = get_field('linked_vendor');
         $linked_vendor_id = null;
         
-        // FIX: Handle arrays, objects, AND raw IDs from the front-end form fallback
+        // Maps linked vendor data to a usable ID, whether it's coming as an array, object, or raw ID
         if (!empty($linked_vendor)) {
             if (is_array($linked_vendor)) {
                 // If it's a relationship field returning an array
@@ -29,7 +29,7 @@
                 // If it's returning a single post object
                 $linked_vendor_id = $linked_vendor->ID;
             } else {
-                // If it's returning a raw ID integer/string (created from our front-end form!)
+                // If it's returning a raw ID integer/string created using the form on the front-end
                 $linked_vendor_id = $linked_vendor;
             }
         }

@@ -49,7 +49,7 @@ get_header(); ?>
         if ($vendor_query->have_posts()) : 
             while ($vendor_query->have_posts()) : $vendor_query->the_post(); 
                 
-                // 1. Grab the venue photo from the ACF custom field (assumes Image Array return type)
+                //  Grab the venue photo from the ACF custom field (assumes Image Array return type)
                 $venue_image = get_field('venue_photo');
                 $thumbnail = '';
 
