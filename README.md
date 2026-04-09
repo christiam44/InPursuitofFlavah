@@ -6,20 +6,21 @@ A  WordPress site developed for the INFO3602 Web Programming course at The Unive
 Current Project Status & Features
 The project is currently in active development. The following core mechanics and custom templates have been successfully implemented and tested:
 
-1. Custom Interactive Game (page-game.php)
+1. Custom Interactive Game (page-game.php) for the template and flavah-game for the plugin functionality.
 A custom "This or That" style voting arena for food items.
 
 Features interactive cards and dynamic logic to help users solve decision paralysis.
 
-2. Visual Food Map Grid (page-food-map.php)
+2. Visual Food Map Grid (page-food-map.php) for the template and flavah-map for the plugin functionality
 A dedicated visual grid acting as a "map" of flavors.
 
 Queries and displays all registered Vendor custom post types with high-quality venue images.
 
 Includes custom CSS UI hover-zoom and card-lift interaction effects.
 
-3. Custom Site-Wide Search System
-Full-Screen Search Overlay: Triggered via the native header magnifying glass icon without relying on external bloat plugins.
+3. Custom Site-Wide Search System or flavah-search
+
+Search overlay triggered by clicking on the magnifying glass icon.
 
 Clean Query Filtering: Programmed via functions.php to bypass default WordPress sample pages.
 
@@ -40,3 +41,5 @@ Clone this repository into your local WordPress development environment's theme 
 Activate the theme via the WordPress Dashboard under Appearance > Themes.
 
 Ensure that the Advanced Custom Fields (ACF) or custom code for the 'Vendors', 'Food Items', and 'Reviews' post types are active to properly render the queries.
+
+Move flavah-search, flavah-map, flavah-game plugin files to a folder named plugins in wp-content to access functionality.
