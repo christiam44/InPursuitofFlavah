@@ -154,3 +154,11 @@ function flavah_custom_user_roles() {
 add_action('init', 'flavah_custom_user_roles');
 
 // NOTE: AJAX Search Callback moved to Flavah Search Plugin for modularity.
+
+//Adjust the number of reviews shown on the archive page to 5 per page
+function flavah_adjust_queries($query) {
+    if (!is_admin() && $query->is_main_query() && is_post_type_archive('review')) {
+        $query->set('posts_per_page', 5);
+    }
+}
+add_action('pre_get_posts', 'flavah_adjust_queries');
